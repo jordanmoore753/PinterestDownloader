@@ -1,4 +1,5 @@
 require "bundler/inline"
+require "securerandom"
 
 gemfile do
   source "https://rubygems.org"
@@ -70,16 +71,17 @@ class Pinterest
 
   def self.download_images
     urls = format_urls
+    hydra = Typhoeus::Hydra.hydra
 
     start_msg("Downloading images", 3)
 
-    urls.each_with_index do |url, idx|
-      downloaded_file = File.open("images/#{idx}.jpg", "wb")
-
+    urls.each do |url|
       request = Typhoeus::Request.new(url)
-      request.on_body { |chunk| downloaded_file.write(chunk) }
-      request.on_complete { |response| downloaded_file.close }
+      request.on_complete { |response| File.open("images/#{SecureRandom.uuid}.jpg", "wb") { |file| file.write(response.body) } }
+      hydra.queue(request)
     end
+
+    hydra.run
 
     end_msg
   end
