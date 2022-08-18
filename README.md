@@ -1,6 +1,6 @@
 # Pinterest Board Image Downloader
 
-Here are the steps for getting all pictures from a board.
+Here are the steps for getting all pictures from a Pinterest board.
 
 The images are loaded asynchronously based on where you are on the page. Images that are not in view are not in the DOM,
 so you need to scroll for each section of images.
