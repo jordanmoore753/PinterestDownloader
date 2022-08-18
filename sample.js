@@ -25,6 +25,8 @@ e = e.filter(ff => ff !== undefined)
 
 e = e.map(ff => ff.split(', ')[3].split(' ')[0])
 
+copy(e)
+
 Then in pin.rb, put all of your arrays into a single variable, then flatten and uniq it. Then run the program.
 
 */
