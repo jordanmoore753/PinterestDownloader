@@ -58,7 +58,7 @@ class Pinterest
 
     urls.each do |url|
       request = Typhoeus::Request.new(url)
-      request.on_complete { |response| File.open("images/#{SecureRandom.uuid}.jpg", "wb") { |file| file.write(response.body) } }
+      request.on_complete { |response| File.open("images/#{SecureRandom.hex(10)}.jpg", "wb") { |file| file.write(response.body) } }
       hydra.queue(request)
     end
 
