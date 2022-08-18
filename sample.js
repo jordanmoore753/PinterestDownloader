@@ -23,6 +23,6 @@ Then, paste the array into the new_pins method in the pin.rb file. Add a , after
 
 Keep repeating all of these steps until you reach the bottom of the board.
 
-Run the program with: ruby pin.rb.
+Run the program from the command line (in this directory) with: ruby pin.rb.
 
 */
