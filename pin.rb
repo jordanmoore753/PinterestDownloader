@@ -1,17 +1,22 @@
-require "fileutils"
-require "open-uri"
-require "uri"
+require "bundler/inline"
+
+gemfile do
+  source "https://rubygems.org"
+  gem "colorize"
+  gem "typhoeus"
+end
 
 class Pinterest
   def self.run
-    images = sample_pins.flatten.uniq # Change this from sample_pins to new_pins if you are adding your own images
+    clear_screen
+    remove_images
+    download_images
+  end
 
-    FileUtils.rm_r("images") if Dir.exist?("images")
-    Dir.mkdir("images")
-
-    images.each_with_index do |src, idx|
-      URI.open(src) { |image| File.open("images/#{idx}.jpg", "wb") { |file| file.write(image.read) } }
-    end
+  def self.new_pins
+    [
+      # Paste the copied array onto this line and then put a comma. Rinse and repeat.
+    ]
   end
 
   def self.sample_pins
@@ -30,10 +35,57 @@ class Pinterest
     ]
   end
 
-  def self.new_pins
-    [
-      # Paste the copied array onto this line and then put a comma. Rinse and repeat.
-    ]
+  def self.start_msg(msg, step_number)
+    step = "[STEP #{step_number}]".yellow
+    puts "#{step}: #{msg}..."
+  end
+
+  def self.end_msg
+    puts "DONE".green
+    puts ""
+  end
+
+  def self.remove_images
+    start_msg("Removing ./images directory...", 1)
+
+    FileUtils.rm_r("images") if Dir.exist?("images")
+    Dir.mkdir("images")
+
+    end_msg
+  end
+
+  def self.format_urls
+    start_msg("Preparing list of URLs", 2)
+
+    urls = if new_pins.any?
+             new_pins.flatten.uniq
+           else
+             sample_pins.flatten.uniq
+           end
+
+    end_msg
+
+    urls
+  end
+
+  def self.download_images
+    urls = format_urls
+
+    start_msg("Downloading images", 3)
+
+    urls.each_with_index do |url, idx|
+      downloaded_file = File.open("images/#{idx}.jpg", "wb")
+
+      request = Typhoeus::Request.new(url)
+      request.on_body { |chunk| downloaded_file.write(chunk) }
+      request.on_complete { |response| downloaded_file.close }
+    end
+
+    end_msg
+  end
+
+  def self.clear_screen
+    system("clear") || system("cls")
   end
 end
 
