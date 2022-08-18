@@ -19,6 +19,8 @@ so you need to scroll for each section.
 
 Do these steps in the console:
 
+e = []
+
 document.querySelectorAll('img').forEach(d => e.push(d.attributes.srcset?.textContent))
 
 e = e.filter(ff => ff !== undefined)
