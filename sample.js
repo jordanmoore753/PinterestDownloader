@@ -9,7 +9,7 @@ Run the first step in the browser console. Do the second step in the pin.rb file
 
 1. copy(Array.from(document.querySelectorAll('img')).map(image => image.attributes.srcset?.textContent).filter(image => image !== undefined).map(url => url.split(', ')[3].split(' ')[0]))
 
-2. Paste the array into the new_pins method in the pin.rb file. Add a , after where you pasted it. Remove the array entries if you are starting over on a new board, otherwise you will re-download all of the previous ones.
+2. Paste the array into the pins method in the pin.rb file. Add a , after where you pasted it. Remove the array entries if you are starting over on a new board, otherwise you will re-download all of the previous ones.
 
 Repeat this process until you've reached the bottom of the page.
 
