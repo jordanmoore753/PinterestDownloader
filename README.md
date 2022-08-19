@@ -11,6 +11,8 @@ Run the first step in the browser console. Do the second step in the pin.rb file
 
 2. Paste the array into the `pins` method in the `pin.rb` file. Add a , after where you pasted it. Remove the array entries if you are starting over on a new board, otherwise you will re-download all of the previous ones.
 
-Repeat this process until you've reached the bottom of the page.
+3. Go back to the Pinterest board and scroll down until you have a full page of new pictures. Repeat steps 1 and 2.
+
+Repeat these steps until you've reached the bottom of the page.
 
 Finally, run the program from the command line (in this directory) with: ruby pin.rb.
