@@ -7,7 +7,7 @@ gemfile do
   gem "typhoeus"
 end
 
-class Pinterest
+class PinterestDownloader
   def self.run
     clear_screen
     remove_images
@@ -72,4 +72,4 @@ class Pinterest
   end
 end
 
-Pinterest.run
+PinterestDownloader.run
